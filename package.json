@@ -1,0 +1,27 @@
+{
+  "name": "sloify",
+  "version": "1.0.0",
+  "description": "TikTok live chat TTS dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"No tests configured\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noahxsu777/Sloify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/noahxsu777/Sloify/issues"
+  },
+  "homepage": "https://github.com/noahxsu777/Sloify#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "tiktok-live-connector": "^2.1.1-beta1",
+    "ws": "^8.20.0"
+  }
+}

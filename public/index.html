@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sloify Live TTS</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="live-panel card">
+        <header>
+          <h1>Sloify Live Dashboard</h1>
+          <p id="statusText">Disconnected</p>
+        </header>
+
+        <div class="connect-row">
+          <input id="username" type="text" placeholder="Enter TikTok username (without @)" />
+          <button id="connectBtn">Connect</button>
+          <button id="disconnectBtn" class="ghost">Disconnect</button>
+        </div>
+
+        <div id="eventFeed" class="event-feed"></div>
+      </section>
+
+      <aside class="tts-panel card floating">
+        <h2>TTS Control</h2>
+
+        <div class="control-grid">
+          <label><input id="toggleChat" type="checkbox" checked /> Chat</label>
+          <label><input id="toggleGift" type="checkbox" checked /> Gifts</label>
+          <label><input id="toggleLike" type="checkbox" /> Likes</label>
+          <label><input id="toggleFollow" type="checkbox" /> Follows</label>
+          <label><input id="toggleBattle" type="checkbox" /> Battles</label>
+        </div>
+
+        <label class="stack">
+          Keywords (comma-separated)
+          <input id="keywordFilter" type="text" placeholder="e.g. hello, lets go" />
+        </label>
+        <label class="stack">
+          Gift filter (comma-separated names)
+          <input id="giftFilter" type="text" placeholder="e.g. Rose, Galaxy" />
+        </label>
+        <label class="stack">
+          Top contributor min total likes
+          <input id="topContributorLikes" type="number" min="0" value="0" />
+        </label>
+
+        <label class="stack inline">
+          <input id="readUsername" type="checkbox" checked />
+          Read username
+        </label>
+
+        <label class="stack">
+          Voice
+          <select id="voiceSelect"></select>
+        </label>
+
+        <label class="stack">
+          Speed: <span id="speedValue">1.0</span>
+          <input id="speed" type="range" min="0.5" max="2" step="0.1" value="1" />
+        </label>
+
+        <label class="stack">
+          Volume: <span id="volumeValue">1.0</span>
+          <input id="volume" type="range" min="0" max="1" step="0.1" value="1" />
+        </label>
+
+        <div class="button-row">
+          <button id="playBtn">Play</button>
+          <button id="pauseBtn" class="ghost">Pause</button>
+          <button id="stopBtn" class="danger">Stop</button>
+        </div>
+
+        <h3>Queue</h3>
+        <ul id="queueList" class="queue-list"></ul>
+      </aside>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 const path = require('node:path');
 const express = require('express');
 const http = require('node:http');
-const { WebSocketServer } = require('ws');
+const { WebSocket, WebSocketServer } = require('ws');
 const { TikTokLiveConnection, WebcastEvent } = require('tiktok-live-connector');
 
 const app = express();
@@ -16,11 +16,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 let activeConnection = null;
 let activeUsername = null;
 const recentEventIds = new Map();
+const DEDUP_WINDOW_MS = 60_000;
 
 function pruneRecent() {
   const now = Date.now();
   for (const [key, ts] of recentEventIds.entries()) {
-    if (now - ts > 60_000) recentEventIds.delete(key);
+    if (now - ts > DEDUP_WINDOW_MS) recentEventIds.delete(key);
   }
 }
 
@@ -34,7 +35,7 @@ function buildEventId(type, payload) {
 function broadcast(data) {
   const json = JSON.stringify(data);
   for (const client of wss.clients) {
-    if (client.readyState === 1) client.send(json);
+    if (client.readyState === WebSocket.OPEN) client.send(json);
   }
 }
 

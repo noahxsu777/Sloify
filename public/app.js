@@ -27,13 +27,16 @@ const pauseBtn = document.getElementById('pauseBtn');
 const stopBtn = document.getElementById('stopBtn');
 
 const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}`);
+const MAX_FEED_ITEMS = 300;
+const MAX_QUEUE_SIZE = 200;
+const MAX_QUEUE_DISPLAY = 25;
 
 const state = {
   queue: [],
   speaking: false,
   paused: false,
   voices: [],
-  maxQueueSize: 200,
+  maxQueueSize: MAX_QUEUE_SIZE,
   userTotalLikes: new Map()
 };
 
@@ -47,14 +50,14 @@ function addFeedItem(type, text) {
   item.className = 'event-item';
   item.innerHTML = `<div class="event-type">${type}</div><div>${text}</div>`;
   eventFeed.prepend(item);
-  while (eventFeed.children.length > 300) {
+  while (eventFeed.children.length > MAX_FEED_ITEMS) {
     eventFeed.removeChild(eventFeed.lastChild);
   }
 }
 
 function renderQueue() {
   queueList.innerHTML = '';
-  state.queue.slice(0, 25).forEach((entry) => {
+  state.queue.slice(0, MAX_QUEUE_DISPLAY).forEach((entry) => {
     const li = document.createElement('li');
     li.textContent = `[${entry.eventType}] ${entry.text}`;
     queueList.appendChild(li);
